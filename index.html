@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raxva RCM | Autonomous AI Agents</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --deep-dark: #121217; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--deep-dark); color: #E2E8F0; scroll-behavior: smooth; }
+        .serif { font-family: 'Bodoni Moda', serif; }
+        .hero-section {
+            background: linear-gradient(rgba(18, 18, 23, 0.7), rgba(18, 18, 23, 0.9)), url('banner.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+        }
+        .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        /* Logo Pop Effect */
+        .logo-glow { filter: drop-shadow(0 0 10px rgba(255,255,255,0.1)); }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <nav class="sticky top-0 z-50 p-4 flex justify-between items-center px-10 lg:px-40 backdrop-blur-xl border-b border-white/5">
+        <div class="flex items-center">
+            <!-- SIGNIFICANTLY BIGGER LOGO -->
+            <img src="logo.png" alt="Raxva RCM" class="h-28 w-auto logo-glow transition hover:scale-110 duration-500">
+        </div>
+        <div class="hidden lg:flex space-x-12 text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-400">
+            <a href="#intelligence" class="hover:text-white transition">Intelligence</a>
+            <a href="#voice" class="hover:text-white transition">Voice</a>
+            <a href="#about" class="hover:text-white transition">About</a>
+        </div>
+        <a href="mailto:ceo@raxvarcm.com" class="border border-white/20 text-white px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition">Contact Sales</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section flex flex-col items-center justify-center text-center px-10">
+        <div class="inline-block px-4 py-1 rounded-full border border-purple-500/20 text-[9px] uppercase tracking-[0.4em] text-purple-300 mb-8 bg-purple-500/5">
+            Next-Gen Revenue Recovery
+        </div>
+
+        <!-- Large Brand Intro -->
+        <h1 class="text-6xl lg:text-9xl serif italic leading-tight mb-8 text-white">
+            The Speed of <br> <span class="not-italic font-bold">Intelligence.</span>
+        </h1>
+
+        <p class="text-lg text-slate-400 max-w-xl mx-auto mb-12 font-light">
+            Raxva deploys specialized AI Voice Agents to automate the final mile of the revenue cycle.
+        </p>
+
+        <div class="flex flex-col items-center space-y-8">
+            <button class="bg-white text-black px-12 py-5 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-purple-300 transition shadow-2xl">Request Pilot</button>
+            <div class="flex items-center space-x-3 text-[10px] text-slate-500 font-mono tracking-[0.3em]">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span>SYSTEM CORE ONLINE</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section id="intelligence" class="py-32 px-10 lg:px-40 grid md:grid-cols-2 gap-20">
+        <div class="glass-card p-12 rounded-[2rem]">
+            <h2 class="text-3xl serif italic mb-6 text-white">Autonomous <span class="not-italic font-bold">Research.</span></h2>
+            <p class="text-slate-400 font-light leading-relaxed">
+                Utilizing Azure AI Foundry, Raxva parses unstructured EOB PDFs and Claim Forms into structured Markdown. We build real-time resolution strategies before the agent dials the payer.
+            </p>
+        </div>
+        <div class="flex flex-col justify-center">
+             <h2 class="text-3xl serif italic mb-6 text-white text-right">Agentic <span class="not-italic font-bold text-right">Voice.</span></h2>
+             <p class="text-slate-400 font-light leading-relaxed text-right">
+                Our voice agents navigate US insurance IVRs like a human specialist. With sub-2-second latency, we survive 40-minute hold times and secure reference numbers automatically.
+             </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="p-24 border-t border-white/5 text-center">
+        <!-- HUGE LOGO IN FOOTER -->
+        <img src="logo.png" alt="Raxva RCM" class="h-32 w-auto mx-auto mb-12 opacity-80 transition hover:opacity-100">
+        <p class="text-[10px] text-slate-600 uppercase tracking-[0.5em] mb-4">Clinical Grade Automation</p>
+        <p class="text-[9px] text-slate-700 uppercase tracking-[0.2em]">Powered by Microsoft Azure • Raxva RCM 2026</p>
+    </footer>
+
+</body>
+</html>
