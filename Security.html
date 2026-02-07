@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raxva RCM Security</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            color: #000000;
+        }
+        .security-page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 16px 72px;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 4px;
+        }
+        .meta {
+            font-size: 14px;
+            color: #555555;
+            margin-bottom: 24px;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 32px;
+            margin-bottom: 8px;
+        }
+        p {
+            line-height: 1.6;
+            margin: 4px 0;
+        }
+        ul {
+            margin: 8px 0 0 18px;
+            padding: 0;
+        }
+        li {
+            margin: 4px 0;
+        }
+        strong {
+            font-weight: 600;
+        }
+        .section-number {
+            font-weight: 600;
+            color: #1f2933;
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+<div class="security-page">
+    <h1>Raxva RCM Security</h1>
+    <div class="meta">
+        Effective Date: February 6, 2026<br>
+        Version: 1.0
+    </div>
+
+    <h2><span class="section-number">1.</span>Security Philosophy</h2>
+    <p>
+        Raxva RCM Ltd ("Raxva") adopts a "Security First" architecture designed to meet the rigorous
+        standards of the US Healthcare industry (HIPAA) and UK Data Protection laws (GDPR).
+    </p>
+    <p>
+        Our infrastructure is built to ensure the Confidentiality, Integrity, and Availability (CIA)
+        of all Client Data.
+    </p>
+
+    <h2><span class="section-number">2.</span>Cloud Infrastructure &amp; Data Residency</h2>
+    <p>Raxva does not maintain physical data centers. We leverage Microsoft Azure, a global leader in cloud security.</p>
+    <ul>
+        <li>
+            <strong>Cloud Provider:</strong> Microsoft Azure (HITRUST CSF Certified, SOC 2 Type II Compliant,
+            and FedRAMP High Authorized).
+        </li>
+        <li>
+            <strong>Data Residency:</strong> To comply with US healthcare data sovereignty requirements,
+            all production data and AI processing occur exclusively within the US East (Virginia) region.
+            Data never leaves the US jurisdiction during processing.
+        </li>
+        <li>
+            <strong>Network Isolation:</strong> We utilize Azure Virtual Networks (VNETs) and Private Links
+            to isolate our application infrastructure from the public internet.
+        </li>
+    </ul>
+
+    <h2><span class="section-number">3.</span>Encryption Standards</h2>
+    <p>We enforce strict encryption protocols for data in all states.</p>
+    <ul>
+        <li>
+            <strong>Data in Transit:</strong> All data transmitted between the Client, Raxva, and Payer
+            systems is encrypted using TLS 1.2 or higher with strong cipher suites. We force HTTPS for all web traffic.
+        </li>
+        <li>
+            <strong>Data at Rest:</strong> All databases, object storage, and backups are encrypted
+            using AES-256 (Advanced Encryption Standard). Key management is handled via Azure Key Vault.
+        </li>
+    </ul>
+
+    <h2><span class="section-number">4.</span>AI Safety &amp; Data Retention</h2>
+    <p>Raxva utilizes a "Transient Processing Model" for Voice AI to minimize risk exposure.</p>
+    <ul>
+        <li>
+            <strong>Zero Retention Policy:</strong> Audio recordings of patient interactions are processed in real time
+            and are not stored permanently on our servers after the transaction is resolved, unless explicitly required
+            by the Client for audit trails.
+        </li>
+        <li>
+            <strong>No Public Training:</strong> Raxva does not use Client PHI (Protected Health Information) to train
+            public foundation models (such as public GPT-4). Our AI models run in a private, isolated container within
+            our Azure tenant.
+        </li>
+    </ul>
+
+    <h2><span class="section-number">5.</span>Access Control &amp; Authentication</h2>
+    <ul>
+        <li>
+            <strong>Multi-Factor Authentication (MFA):</strong> MFA is enforced for all Raxva administrative accounts
+            and developer access points.
+        </li>
+        <li>
+            <strong>Principle of Least Privilege (PoLP):</strong> Access to production data is restricted to a limited
+            number of authorized personnel who require access to perform their job functions. Access rights are reviewed
+            quarterly.
+        </li>
+        <li>
+            <strong>Audit Logging:</strong> We maintain detailed logs of all system access and data processing activities
+            via Azure Monitor to ensure full traceability.
+        </li>
+    </ul>
+
+    <h2><span class="section-number">6.</span>Application Security</h2>
+    <ul>
+        <li>
+            <strong>Secure Development:</strong> We follow OWASP Top 10 guidelines during our software development
+            lifecycle (SDLC).
+        </li>
+        <li>
+            <strong>Vulnerability Management:</strong> We perform automated dependency scanning to identify and patch
+            security vulnerabilities in our code libraries.
+        </li>
+        <li>
+            <strong>Penetration Testing:</strong> We conduct regular internal security reviews and architecture audits.
+        </li>
+    </ul>
+
+    <h2><span class="section-number">7.</span>Incident Response</h2>
+    <p>Raxva maintains a formal Incident Response Plan (IRP).</p>
+    <ul>
+        <li>
+            <strong>Notification:</strong> In the event of a confirmed Data Breach affecting PHI, Raxva will notify
+            the Client without undue delay and within 72 hours of discovery, in accordance with HIPAA Breach Notification
+            Rule and UK GDPR requirements.
+        </li>
+        <li>
+            <strong>Transparency:</strong> We are committed to full transparency regarding the nature and scope of any
+            security incidents.
+        </li>
+    </ul>
+
+    <h2><span class="section-number">8.</span>Compliance</h2>
+    <ul>
+        <li>
+            <strong>HIPAA:</strong> Raxva acts as a Business Associate under HIPAA. We execute a Business Associate
+            Agreement (BAA) with all covered entities.
+        </li>
+        <li>
+            <strong>GDPR:</strong> We comply with the UK Data Protection Act 2018.
+        </li>
+    </ul>
+</div>
+</body>
+</html>
