@@ -3,87 +3,1718 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raxva RCM | Autonomous AI Agents</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Raxva RCM - Autonomous Voice AI for Medical Billing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --deep-dark: #121217; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--deep-dark); color: #E2E8F0; scroll-behavior: smooth; }
-        .serif { font-family: 'Bodoni Moda', serif; }
-        .hero-section {
-            background: linear-gradient(rgba(18, 18, 23, 0.7), rgba(18, 18, 23, 0.9)), url('banner.png');
-            background-size: cover;
-            background-position: center;
-            min-height: 100vh;
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        /* Logo Pop Effect */
-        .logo-glow { filter: drop-shadow(0 0 10px rgba(255,255,255,0.1)); }
+
+        :root {
+            --navy: #0B1A2F;
+            --navy-light: #1a2d4a;
+            --electric-blue: #3B6CFF;
+            --electric-blue-light: #5a85ff;
+            --off-white: #F6F8FA;
+            --cool-gray: #6B7A90;
+            --white: #FFFFFF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--off-white);
+            color: var(--navy);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 300;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .micro-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--cool-gray);
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .card-surface {
+            background: white;
+            border-radius: 28px;
+            border: 1px solid rgba(11, 26, 47, 0.08);
+            box-shadow: 0 18px 50px rgba(11, 26, 47, 0.10);
+        }
+
+        .btn-primary {
+            background: var(--electric-blue);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 9999px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--electric-blue-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 108, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--navy);
+            padding: 14px 28px;
+            border-radius: 9999px;
+            font-weight: 500;
+            border: 1px solid rgba(11, 26, 47, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(11, 26, 47, 0.05);
+        }
+
+        .dot-grid {
+            background-image: radial-gradient(circle, rgba(11, 26, 47, 0.06) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--electric-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--cool-gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--navy);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: white;
+            border-top: 1px solid #eee;
+            padding: 20px;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 12px 0;
+            color: var(--navy);
+            text-decoration: none;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+
+        .hero-card {
+            padding: 60px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(36px, 5vw, 64px);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--navy);
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: var(--cool-gray);
+            margin-bottom: 32px;
+            max-width: 540px;
+            line-height: 1.7;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 24px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .hero-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--cool-gray);
+        }
+
+        .hero-badge svg {
+            width: 20px;
+            height: 20px;
+            color: var(--electric-blue);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .badge-pill {
+            font-size: 11px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 999px;
+        }
+
+        /* Trust Bar */
+        .trust-bar {
+            background: white;
+            padding: 60px 0;
+        }
+
+        .trust-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+
+        .trust-section {
+            margin-bottom: 40px;
+        }
+
+        .trust-section:last-child {
+            margin-bottom: 0;
+            padding-top: 40px;
+            border-top: 1px solid #eee;
+        }
+
+        .trust-label {
+            text-align: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--cool-gray);
+            margin-bottom: 20px;
+        }
+
+        .trust-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .trust-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            color: var(--cool-gray);
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .trust-logo:hover {
+            opacity: 1;
+        }
+
+        .trust-logo-with-icon {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .azure-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #0078D4, #005A9E);
+            border-radius: 4px;
+        }
+
+        /* Impact Section */
+        .impact {
+            padding: 100px 0;
+        }
+
+        .impact-card {
+            padding: 60px;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .impact-content h2 {
+            font-size: clamp(32px, 4vw, 52px);
+            line-height: 1.15;
+            margin-bottom: 32px;
+        }
+
+        .impact-content h2 span {
+            color: var(--electric-blue);
+        }
+
+        .impact-chart {
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 24px;
+        }
+
+        .impact-chart img {
+            width: 100%;
+            display: block;
+        }
+
+        .impact-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            background: var(--off-white);
+            border-radius: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: #eef1f5;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(59, 108, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .stat-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--electric-blue);
+        }
+
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--navy);
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--cool-gray);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background: white;
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            margin-top: 16px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .step-card {
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            box-shadow: 0 24px 60px rgba(11, 26, 47, 0.15);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--electric-blue);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .step-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(59, 108, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--electric-blue);
+        }
+
+        .step-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .step-card p {
+            color: var(--cool-gray);
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .step-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .step-tag {
+            font-size: 12px;
+            padding: 6px 12px;
+            background: var(--off-white);
+            border-radius: 999px;
+            color: var(--cool-gray);
+        }
+
+        /* ROI Calculator */
+        .roi {
+            padding: 100px 0;
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .roi-form h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            margin-bottom: 16px;
+        }
+
+        .roi-form > p {
+            color: var(--cool-gray);
+            margin-bottom: 32px;
+            font-size: 18px;
+        }
+
+        .form-card {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--navy);
+        }
+
+        .form-group label svg {
+            width: 16px;
+            height: 16px;
+            color: var(--electric-blue);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 14px;
+            background: var(--off-white);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--electric-blue);
+            box-shadow: 0 0 0 3px rgba(59, 108, 255, 0.15);
+        }
+
+        .roi-result {
+            background: var(--navy);
+            color: white;
+            padding: 48px;
+            border-radius: 28px;
+        }
+
+        .result-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(59, 108, 255, 0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        .result-icon svg {
+            width: 32px;
+            height: 32px;
+            color: var(--electric-blue);
+        }
+
+        .result-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+        }
+
+        .result-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 64px;
+            color: var(--electric-blue);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .result-desc {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 32px;
+        }
+
+        .result-stats {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 24px;
+            margin-bottom: 32px;
+        }
+
+        .result-stat {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .result-stat span:first-child {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .result-stat span:last-child {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+        }
+
+        /* Leadership */
+        .leadership {
+            background: white;
+            padding: 100px 0;
+        }
+
+        .founders-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .founder-card {
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .founder-card:hover {
+            box-shadow: 0 24px 60px rgba(11, 26, 47, 0.15);
+        }
+
+        .founder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .founder-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(59, 108, 255, 0.2), rgba(59, 108, 255, 0.05));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .founder-avatar svg {
+            width: 40px;
+            height: 40px;
+            color: var(--electric-blue);
+        }
+
+        .founder-linkedin {
+            width: 40px;
+            height: 40px;
+            background: var(--off-white);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cool-gray);
+            transition: all 0.3s ease;
+        }
+
+        .founder-linkedin:hover {
+            background: var(--electric-blue);
+            color: white;
+        }
+
+        .founder-card h3 {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .founder-role {
+            color: var(--electric-blue);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .founder-card p {
+            color: var(--cool-gray);
+            line-height: 1.7;
+        }
+
+        /* Tech Specs */
+        .tech-specs {
+            padding: 100px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feature-card {
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 24px 60px rgba(11, 26, 47, 0.15);
+        }
+
+        .feature-card.highlight {
+            box-shadow: 0 0 0 2px rgba(59, 108, 255, 0.2);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .feature-card.highlight .feature-icon {
+            background: var(--electric-blue);
+        }
+
+        .feature-card:not(.highlight) .feature-icon {
+            background: rgba(59, 108, 255, 0.1);
+        }
+
+        .feature-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .feature-card.highlight .feature-icon svg {
+            color: white;
+        }
+
+        .feature-card:not(.highlight) .feature-icon svg {
+            color: var(--electric-blue);
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card p {
+            color: var(--cool-gray);
+            line-height: 1.7;
+        }
+
+        /* Performance */
+        .performance {
+            background: white;
+            padding: 100px 0;
+        }
+
+        .performance-card {
+            padding: 60px;
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .performance-content h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            margin-bottom: 24px;
+        }
+
+        .performance-content > p {
+            color: var(--cool-gray);
+            font-size: 18px;
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .performance-legend {
+            margin-bottom: 32px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .legend-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .legend-dot.human {
+            background: rgba(107, 122, 144, 0.4);
+        }
+
+        .legend-dot.ai {
+            background: var(--electric-blue);
+        }
+
+        .legend-item span {
+            color: var(--cool-gray);
+        }
+
+        .legend-item.active span {
+            color: var(--navy);
+            font-weight: 500;
+        }
+
+        .performance-chart {
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .performance-chart img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: white;
+            padding: 100px 0 40px;
+        }
+
+        .footer-cta {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .footer-cta h2 {
+            font-size: clamp(36px, 5vw, 56px);
+            margin-bottom: 24px;
+        }
+
+        .footer-cta p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+            margin-bottom: 32px;
+        }
+
+        .footer-cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 9999px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 60px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 16px;
+        }
+
+        .footer-brand .logo-text {
+            color: white;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-legal {
+            margin-top: 24px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 60px;
+            padding-top: 24px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: var(--navy);
+            color: white;
+            padding: 32px;
+        }
+
+        .modal-header h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .modal-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: white;
+        }
+
+        .modal-body {
+            padding: 32px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .modal-footer {
+            text-align: center;
+            padding-top: 16px;
+            font-size: 12px;
+            color: var(--cool-gray);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--navy);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 3000;
+            animation: toastSlide 0.3s ease;
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        @keyframes toastSlide {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            background: #10B981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid,
+            .impact-grid,
+            .roi-grid,
+            .performance-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid,
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .founders-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links,
+            .nav .btn-primary {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-menu.active {
+                display: block;
+            }
+
+            .hero-card,
+            .impact-card,
+            .form-card,
+            .roi-result,
+            .founder-card,
+            .feature-card,
+            .performance-card {
+                padding: 32px;
+            }
+
+            .steps-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-logos {
+                gap: 32px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-badges {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
     </style>
 </head>
-<body>
-
-    <!-- Header -->
-    <nav class="sticky top-0 z-50 p-4 flex justify-between items-center px-10 lg:px-40 backdrop-blur-xl border-b border-white/5">
-        <div class="flex items-center">
-            <!-- SIGNIFICANTLY BIGGER LOGO -->
-            <img src="logo.png" alt="Raxva RCM" class="h-28 w-auto logo-glow transition hover:scale-110 duration-500">
+<body class="dot-grid">
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img width="230" height="200" src="Raxva.png"> </img>
+            </div>
+            <div class="nav-links">
+                <a href="#hero">Product</a>
+                <a href="#impact">Impact</a>
+                <a href="#leadership">Company</a>
+                <a href="#tech-specs">Security</a>
+            </div>
+            <button class="btn-primary" onclick="openModal('pilot')">Join the Pilot</button>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
         </div>
-        <div class="hidden lg:flex space-x-12 text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-400">
-            <a href="#intelligence" class="hover:text-white transition">Intelligence</a>
-            <a href="#voice" class="hover:text-white transition">Voice</a>
-            <a href="#about" class="hover:text-white transition">About</a>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#hero" onclick="toggleMobileMenu()">Product</a>
+            <a href="#impact" onclick="toggleMobileMenu()">Impact</a>
+            <a href="#tech-specs" onclick="toggleMobileMenu()">Security</a>
+            <a href="#leadership" onclick="toggleMobileMenu()">Company</a>
+            <button class="btn-primary" onclick="openModal('pilot'); toggleMobileMenu();" style="width: 100%; margin-top: 16px; justify-content: center;">Join the Pilot</button>
         </div>
-        <a href="mailto:ceo@raxvarcm.com" class="border border-white/20 text-white px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition">Contact Sales</a>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section flex flex-col items-center justify-center text-center px-10">
-        <div class="inline-block px-4 py-1 rounded-full border border-purple-500/20 text-[9px] uppercase tracking-[0.4em] text-purple-300 mb-8 bg-purple-500/5">
-            Next-Gen Revenue Recovery
-        </div>
-
-        <!-- Large Brand Intro -->
-        <h1 class="text-6xl lg:text-9xl serif italic leading-tight mb-8 text-white">
-            The Speed of <br> <span class="not-italic font-bold">Intelligence.</span>
-        </h1>
-
-        <p class="text-lg text-slate-400 max-w-xl mx-auto mb-12 font-light">
-            Raxva deploys specialized AI Voice Agents to automate the final mile of the revenue cycle.
-        </p>
-
-        <div class="flex flex-col items-center space-y-8">
-            <button class="bg-white text-black px-12 py-5 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-purple-300 transition shadow-2xl">Request Pilot</button>
-            <div class="flex items-center space-x-3 text-[10px] text-slate-500 font-mono tracking-[0.3em]">
-                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                <span>SYSTEM CORE ONLINE</span>
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="card-surface hero-card">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <span class="micro-label" style="color: var(--electric-blue);">Autonomous Voice AI Agent</span>
+                        <h1>Stop Paying Staff to Wait on Hold.</h1>
+                        <p>RAXVA RCM is the Autonomous Voice AI Agent that calls insurance payers for you. We navigate the IVR, speak to the rep, and retrieve detailed denial reasons including call reference number—so your team doesn't have to.</p>
+                        <div>
+                            <button class="btn-primary" onclick="openModal('pilot')" style="margin-right: 12px;">
+                                Join the Pilot
+                                <span class="badge-pill">20 Free Claims</span>
+                            </button>
+                        </div>
+                        <div class="hero-badges">
+                            <div class="hero-badge">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                    <polyline points="17 6 23 6 23 12"></polyline>
+                                </svg>
+                                70% cost reduction
+                            </div>
+                            <div class="hero-badge">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <200ms Latency
+                            </div>
+                            <div class="hero-badge">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                                HIPAA-ready
+                            </div>
+                            <div class="hero-badge">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                                GDPR
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="hero.jpg" alt="AI Voice Technology">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Content -->
-    <section id="intelligence" class="py-32 px-10 lg:px-40 grid md:grid-cols-2 gap-20">
-        <div class="glass-card p-12 rounded-[2rem]">
-            <h2 class="text-3xl serif italic mb-6 text-white">Autonomous <span class="not-italic font-bold">Research.</span></h2>
-            <p class="text-slate-400 font-light leading-relaxed">
-                Utilizing Azure AI Foundry, Raxva parses unstructured EOB PDFs and Claim Forms into structured Markdown. We build real-time resolution strategies before the agent dials the payer.
-            </p>
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+            <div class="trust-section">
+                <p class="trust-title">Infrastructure secured by:</p>
+                <div class="trust-logos">
+                    <div class="trust-logo trust-logo-with-icon">
+                        <div class="azure-icon"></div>
+                        <span>Microsoft Azure</span>
+                    </div>
+                    <div class="trust-logo trust-logo-with-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                        <span>HIPAA Compliant</span>
+                    </div>
+                    <div class="trust-logo trust-logo-with-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                        <span>GDPR</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="flex flex-col justify-center">
-             <h2 class="text-3xl serif italic mb-6 text-white text-right">Agentic <span class="not-italic font-bold text-right">Voice.</span></h2>
-             <p class="text-slate-400 font-light leading-relaxed text-right">
-                Our voice agents navigate US insurance IVRs like a human specialist. With sub-2-second latency, we survive 40-minute hold times and secure reference numbers automatically.
-             </p>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact" id="impact">
+        <div class="container">
+            <div class="card-surface impact-card">
+                <div class="impact-grid">
+                    <div class="impact-content">
+                        <span class="micro-label" style="color: var(--electric-blue);">The Impact</span>
+                        <h2>Accelerate Revenue Recovery by <span>3x</span></h2>
+                        <div class="impact-chart">
+                            <img src="line-graph.jpg" alt="Time to Resolution Chart">
+                        </div>
+                    </div>
+                    <div class="impact-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                    <polyline points="17 6 23 6 23 12"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="stat-value">70%</div>
+                                <div class="stat-label">Reduction in Operational Costs</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="stat-value">100%</div>
+                                <div class="stat-label">Staff Time Saved on Hold</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                    <polyline points="17 6 23 6 23 12"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="stat-value">5x</div>
+                                <div class="stat-label">Faster Claim Resolution</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="stat-value">Audit</div>
+                                <div class="stat-label">Human in the Loop</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="micro-label" style="color: var(--electric-blue);">The Workflow</span>
+                <h2>Resolved in 3 Steps</h2>
+            </div>
+            <div class="steps-grid">
+                <div class="card-surface step-card">
+                    <div class="step-header">
+                        <div class="step-number">01</div>
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3>Claims</h3>
+                    <p>No complex API handshakes, Simply share your aging data. Our AI will ingest the data, identifies high-priority denials, and begins the outreach process</p>
+                    <div class="step-tags">
+                        <span class="step-tag">90+ aging</span>
+                        <span class="step-tag">Complex Payers</span>
+                    </div>
+                </div>
+                <div class="card-surface step-card">
+                    <div class="step-header">
+                        <div class="step-number">02</div>
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3>AI Agent Activates</h3>
+                    <p>Our Voice Agents call the payers (BCBS, UHC, Aetna, Cigna) simultaneously. They navigate the IVR and wait on hold to extract data from insurance.</p>
+                    <div class="step-tags">
+                        <span class="step-tag">Handles interruptions</span>
+                        <span class="step-tag">Concurrent calls</span>
+                    </div>
+                </div>
+                <div class="card-surface step-card">
+                    <div class="step-header">
+                        <div class="step-number">03</div>
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3>Results</h3>
+                    <p>AI documents detailed report with the exact CARC/RARC codes, reference numbers, follow-up dates, and "Next Actions" for every claim.</p>
+                    <div class="step-tags">
+                        <span class="step-tag">Structured data</span>
+                        <span class="step-tag">100% Audit</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership -->
+    <section class="leadership" id="leadership">
+        <div class="container">
+            <div class="section-header">
+                <span class="micro-label" style="color: var(--electric-blue);">The Team</span>
+                <h2>Built by RCM Experts & AI Architects</h2>
+                <p style="color: var(--cool-gray); max-width: 600px; margin: 16px auto 0;">Bridging the gap between US Healthcare complexity and UK Engineering precision.</p>
+            </div>
+            <div class="founders-grid">
+                <div class="card-surface founder-card">
+                    <div class="founder-header">
+                        <div class="founder-avatar">
+                            <img width="80" height="80" src="Vaishnavi.jpg" alt="Founder name">
+                        </div>
+                        <a href="https://www.linkedin.com/in/vaishnavi-ratnalu" class="founder-linkedin">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                    </div>
+                    <h3>Vaishnavi Ratnalu</h3>
+                    <div class="founder-role">Co-Founder & CTO</div>
+                    <p>Designing secure, HIPAA-compliant voice AI solutions for healthcare. 5+ years in RCM and denial management. Expert in Azure cloud infrastructure, real-time voice systems, and healthcare data pipelines. MSc Digital Health and AI.</p>
+                </div>
+                <div class="card-surface founder-card">
+                    <div class="founder-header">
+                        <div class="founder-avatar">
+                            <img width="80" height="80" src="sagar.jpg" alt="Founder name">
+                        </div>
+                        <a href="https://www.linkedin.com/in/laxmisagar-bollaka" class="founder-linkedin">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                    </div>
+                    <h3>Laxmisagar Bollaka</h3>
+                    <div class="founder-role">Co-Founder & COO</div>
+                    <p>Leading commercial strategy, market expansion, and operational excellence. Specialised expertise in RCM infrastructure optimisation and operational efficiency across healthcare markets. Masters in International Business Management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Specs -->
+    <section class="tech-specs" id="tech-specs">
+        <div class="container">
+            <div class="section-header">
+                <span class="micro-label" style="color: var(--electric-blue);">The Stack</span>
+                <h2>Built for the Complexities of US Healthcare</h2>
+                <p style="color: var(--cool-gray); max-width: 600px; margin: 16px auto 0;">Enterprise-grade security and compliance that exceeds industry standards.</p>
+            </div>
+            <div class="features-grid">
+                <div class="card-surface feature-card highlight">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3>Agentic Reasoning</h3>
+                    <p>We don't use rigid scripts. Our AI understands context, handles interruptions, and can answer unexpected questions from insurance reps.</p>
+                </div>
+                <div class="card-surface feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <h3>Zero-Retention Security</h3>
+                    <p>We operate on a "Transient" model. Patient audio is processed in real-time and deleted immediately. Data never leaves the US region.</p>
+                </div>
+                <div class="card-surface feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Uninterrupted Processing</h3>
+                    <p>Processing never stops. Claim status are updated continuously, giving your team immediate access to critical information.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Analysis -->
+    <section class="performance">
+        <div class="container">
+            <div class="card-surface performance-card">
+                <div class="performance-grid">
+                    <div class="performance-content">
+                        <span class="micro-label" style="color: var(--electric-blue);">Performance Analysis</span>
+                        <h2>Outperforming Human Benchmarks</h2>
+                        <p>Raxva scales instantly with your volume. No hiring, no training, no downtime.</p>
+                        <div class="performance-legend">
+                            <div class="legend-item">
+                                <div class="legend-dot human"></div>
+                                <span>Human Team: While traditional teams hit capacity</span>
+                            </div>
+                            <div class="legend-item active">
+                                <div class="legend-dot ai"></div>
+                                <span>Raxva RCM AI: Continues to expand in real time.</span>
+                            </div>
+                        </div>
+                        <button class="btn-primary" onclick="openModal('demo')">Book a Demo</button>
+                    </div>
+                    <div class="performance-chart">
+                        <img src="last.jpg" alt="Performance Chart">
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="p-24 border-t border-white/5 text-center">
-        <!-- HUGE LOGO IN FOOTER -->
-        <img src="logo.png" alt="Raxva RCM" class="h-32 w-auto mx-auto mb-12 opacity-80 transition hover:opacity-100">
-        <p class="text-[10px] text-slate-600 uppercase tracking-[0.5em] mb-4">Clinical Grade Automation</p>
-        <p class="text-[9px] text-slate-700 uppercase tracking-[0.2em]">Powered by Microsoft Azure • Raxva RCM 2026</p>
+    <footer>
+        <div class="container">
+            <div class="footer-cta">
+                <h2>Stop Paying Staff to Wait on Hold.</h2>
+                <p>Join the pilot and see results in your first week.</p>
+                <div class="footer-cta-buttons">
+                    <button class="btn-primary" onclick="openModal('pilot')">Join the Pilot</button>
+                    <button class="btn-outline" onclick="openModal('demo')">Contact Sales</button>
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-text">Raxva RCM Ltd</span>
+                    </div>
+                    <p>Autonomous Voice AI for healthcare revenue cycle management.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Links</h4>
+                    <a href="#hero">Product</a>
+                    <a href="#impact">Impact</a>
+                    <a href="#tech-specs">Security</a>
+                    <a href="#leadership">Company</a>
+                    <a href="#" onclick="openModal('demo'); return false;">Contact</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <a href="Privacy.html" target="_blank">Privacy Policy ↗</a>
+                    <a href="Terms.html" target="_blank">Terms of Service ↗</a>
+                    <a href="Security.html" target="_blank">Security ↗</a>
+                    <div class="footer-legal">
+                        <p>71-75 Shelton Street, Covent Garden, London</p>
+                        <p>Raxva RCM Ltd is registered with the ICO 17000739.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 Raxva RCM Ltd. All Rights Reserved.
+            </div>
+        </div>
     </footer>
 
+    <!-- Contact Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-header" style="position: relative;">
+                <button class="modal-close" onclick="closeModal()">×</button>
+                <h3 id="modalTitle">Join the Pilot Program</h3>
+                <p id="modalSubtitle">Get 20 free claims processed. No credit card required.</p>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" placeholder="Doe" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            Work Email
+                        </label>
+                        <input type="email" placeholder="john@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                            </svg>
+                            Company Name
+                        </label>
+                        <input type="text" placeholder="Your healthcare organization" required>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            Message (Optional)
+                        </label>
+                        <textarea placeholder="Tell us about your current claim volume and challenges..." style="width: 100%; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 10px; font-size: 14px; background: var(--off-white); min-height: 100px; resize: vertical;"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" id="modalSubmit" style="width: 100%; justify-content: center; padding: 16px;">Join the Pilot</button>
+                </form>
+                <div class="modal-footer">
+                    Our team will contact you within 24 hours.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon">✓</div>
+        <div>Thank you for your interest! We will contact you within 24 hours.</div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Modal functions
+        function openModal(type) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+            const subtitle = document.getElementById('modalSubtitle');
+            const submit = document.getElementById('modalSubmit');
+
+            if (type === 'pilot') {
+                title.textContent = 'Join the Pilot Program';
+                subtitle.textContent = 'Get 20 free claims processed. No credit card required.';
+                submit.textContent = 'Join the Pilot';
+            } else {
+                title.textContent = 'Book a Demo';
+                subtitle.textContent = 'Schedule a personalized demo with our team.';
+                submit.textContent = 'Book a Demo';
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on overlay click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Form submission
+        function handleSubmit(e) {
+            e.preventDefault();
+            closeModal();
+            showToast();
+            e.target.reset();
+        }
+
+        // Toast notification
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(function() {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
