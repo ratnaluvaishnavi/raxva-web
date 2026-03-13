@@ -1215,7 +1215,6 @@
                         <div>
                             <button class="btn-primary" onclick="openModal('pilot')" style="margin-right: 12px;">
                                 Join the Pilot
-                                <span class="badge-pill">20 Free Claims</span>
                             </button>
                         </div>
                         <div class="hero-badges">
@@ -1582,7 +1581,6 @@
             <div class="modal-header" style="position: relative;">
                 <button class="modal-close" onclick="closeModal()">×</button>
                 <h3 id="modalTitle">Join the Pilot Program</h3>
-                <p id="modalSubtitle">Get 20 free claims processed</p>
             </div>
             <div class="modal-body">
                 <form onsubmit="handleSubmit(event)">
@@ -1667,7 +1665,7 @@
 
             if (type === 'pilot') {
                 title.textContent = 'Join the Pilot Program';
-                subtitle.textContent = 'Get 20 free claims processed.';
+
                 submit.textContent = 'Join the Pilot';
             } else {
                 title.textContent = 'Book a Demo';
